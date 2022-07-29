@@ -22,16 +22,16 @@ pub struct GammaTest<'a, T : Float> {
     m: usize,
 }
 
-
-impl<'a, T:Float> GammaTest<'a, T>{
-
+impl<'a, T:Float> GammaTest<'a, T> {
     pub fn new(inputs : &'a [Vec<T>], output : &'a [T], p : usize)->GammaTest<'a, T> {
             let n = output.len();
             let mm = inputs.len();
             if n == 0 {panic!("output.len() must greater than 0!");}
             if mm == 0 {panic!("inputs.len() must greater than 0!");}
-            if p == 0 {panic!("p must greater than 0!");}
-            
+                        
+            if p < 2 {panic!("the parametre p must be : p >= 2!");}
+            if p > mm-1 {panic!("the parametre p must less than inputs (and output) lenght !");}
+                        
             if mm!=n {panic!("inputs & output lengths must be equal!");}
             
             let m = inputs[0].len();
@@ -683,7 +683,41 @@ mod tests{
     } 
 
 
+/*     #[test]
+    fn gammatest_compute_test_2(){
+        let output = [54.0f32, 30.0, 3.0, 28.0, 12.5, 3.5, 5.3, 19.27];
+        let inputs =[
+            [3.0f32, 4.0, 4.0, 3.2, 3.0].to_vec(), //1
+            [2.0f32, 1.0, 3.0, 3.2, 3.0].to_vec(), //2
+            [1.0f32, 0.0, 1.0, 3.2, 3.0].to_vec(), //3 
+            [1.0f32, 1.0, 1.0, 3.2, 3.0].to_vec(), //4
+            [1.0f32, 1.2, 1.1, 3.2, 3.0].to_vec(), //5
+            [1.0f32, 1.0, 1.5, 3.2, 3.5].to_vec(), //6
+            [1.0f32, 1.7, 1.0, 3.2, 3.5].to_vec(), //7
+            [1.2f32, 11.7, 11.0, 13.2, 4.5].to_vec(), //8
 
+            ];
+    
+        let p : usize = 4;
+    
+        let mut gt : GammaTest<f32> = GammaTest::new(&inputs, &output, p);
+    
+        //println!("m = {}, mm = {}", gt.m, gt.mm);
+        
+        gt.compute();
+    
+        //println!("euclidean_distance_table : \n {:?}", gt.euclidean_distance_table);
+    
+        //println!("slope = {:?}", gt.slope);
+    
+        //println!("intercept = {:?}", gt.intercept);
+
+        assert_eq!(gt.slope,  Some(33.54095));
+        assert_eq!(gt.intercept, Some(20.578278));
+
+    } 
+
+ */
     #[test]
     fn gammatestf32_compute_test_1(){
         let output = [54.0f32, 30.0, 3.0, 28.0];
