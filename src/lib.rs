@@ -20,7 +20,6 @@ pub struct GammaTest<'a, T : Float> {
     mm : usize,
     mmt : T,
     m: usize,
-    mt : T,
 }
 
 
@@ -40,11 +39,6 @@ impl<'a, T:Float> GammaTest<'a, T>{
              let mmt : T = match T::from(mm) {
                 None => T::zero(),
                 Some(x)=> x,
-             };
-
-             let mt : T = match  T::from(m){
-                 None => T::zero(),
-                 Some(x)=> x,
              };
 
             let euclidean_distance_table : Vec<Vec<T>> = Vec::with_capacity(mm);
@@ -68,7 +62,6 @@ impl<'a, T:Float> GammaTest<'a, T>{
                 mm,
                 mmt,
                 m,
-                mt,
             }
         }
     
@@ -242,7 +235,7 @@ impl<'a, T:Float> GammaTest<'a, T>{
             match self.intercept{
                 None => self.v_ratio = None,
                 Some(gamma) => {
-                    let output_variance = GammaTestf32::compute_variance(&self.output);
+                    let output_variance = GammaTest::compute_variance(&self.output);
                     self.output_variance = output_variance;
                     match self.output_variance {
                         None => self.v_ratio = None,
@@ -257,22 +250,25 @@ impl<'a, T:Float> GammaTest<'a, T>{
     
         fn linear_regression(&self, x : &[T], y : &[T])->(T, T) {
            
-            let nx= match T::from(x.len()){
+            let nx = x.len();
+            let ny = y.len();
+
+            let nxt= match T::from(x.len()){
                 None => T::one(),
-                Some(n) => n,
+                Some(nxt) => nxt,
             };
 
-            let ny: T = match T::from(y.len()) {
+            let nyt: T = match T::from(y.len()) {
                 None => T::one(),
-                Some(m) => m,
+                Some(nyt) => nyt,
             };
             
             if nx != ny {panic!("no equal items!");}
     
             let sumx : T = x.iter().fold(T::zero(), |acc, v| *v + acc);
             let sumy : T = y.iter().fold(T::zero(), |acc, v| *v + acc);
-            let avgx: T = sumx/nx;
-            let avgy: T = sumy/ny;
+            let avgx: T = sumx/nxt;
+            let avgy: T = sumy/nyt;
     
             let mut difx : Vec<T>  =Vec::with_capacity(nx);
             let mut difx2 : Vec<T>  =Vec::with_capacity(nx);
@@ -281,13 +277,13 @@ impl<'a, T:Float> GammaTest<'a, T>{
     
             for i in 0..nx {
                 difx.push(avgx - x[i]);
-                difx2.push(f32::powi(difx[i], 2));
+                difx2.push(T::powi(difx[i], 2));
                 dify.push(avgy - y[i]);
                 product.push(difx[i]*dify[i]);
             }
     
-            let sumdifx2 :f32 = difx2.iter().fold(0.0, |acc, v| acc+v);
-            let sumxy : f32 = product.iter().fold(0.0, |acc, v| acc+v);
+            let sumdifx2 :T = difx2.iter().fold(T::zero(), |acc, v| *v + acc);
+            let sumxy : T = product.iter().fold(T::zero(), |acc, v| *v + acc);
     
              let slope =sumxy/sumdifx2; 
              let intercept = avgy - (slope*avgx);
@@ -295,16 +291,20 @@ impl<'a, T:Float> GammaTest<'a, T>{
             (slope, intercept)
         }
         
-        pub fn compute_variance(data : &[f32])->Option<f32>{
+        pub fn compute_variance(data : &[T])->Option<T>{
             let n = data.len();
+            let nt : T = match T::from(n) {
+                None => T::one(),
+                Some(nt) => nt,
+            };
+
             match n {
                  0 => None,
                 _ => {
-                    let sum = data.iter().fold(0.0, |acc, x| acc+x);
-                    let avg = sum / n as f32;
-    
-                    let difference = data.iter().fold(0.0, |acc, x| acc + f32::powi(x-avg, 2));
-                    let variance = difference /n as f32;
+                    let sum = data.iter().fold(T::zero(), |acc, x| *x + acc);
+                    let avg = sum / nt;
+                    let difference :T = data.iter().fold(T::zero(), |acc, x| acc + T::powi(*x-avg, 2));
+                    let variance = difference /nt;
                     Some(variance)
                 }   
             }
@@ -654,7 +654,38 @@ mod tests{
     use super::*;
 
     #[test]
-    fn test_1(){
+    fn gammatest_compute_test_1(){
+        let output = [54.0f32, 30.0, 3.0, 28.0];
+        let inputs =[
+            [3.0f32, 4.0, 4.0].to_vec(),
+            [2.0f32, 1.0, 3.0].to_vec(),
+            [1.0f32, 0.0, 1.0].to_vec(),
+            [1.0f32, 1.0, 1.0].to_vec(),
+            ];
+    
+        let p : usize = 3;
+    
+        let mut gt : GammaTest<f32> = GammaTest::new(&inputs, &output, p);
+    
+        //println!("m = {}, mm = {}", gt.m, gt.mm);
+        
+        gt.compute();
+    
+        //println!("euclidean_distance_table : \n {:?}", gt.euclidean_distance_table);
+    
+        //println!("slope = {:?}", gt.slope);
+    
+        //println!("intercept = {:?}", gt.intercept);
+
+        assert_eq!(gt.slope,  Some(33.54095));
+        assert_eq!(gt.intercept, Some(20.578278));
+
+    } 
+
+
+
+    #[test]
+    fn gammatestf32_compute_test_1(){
         let output = [54.0f32, 30.0, 3.0, 28.0];
         let inputs =[
             [3.0f32, 4.0, 4.0].to_vec(),
@@ -681,6 +712,9 @@ mod tests{
         assert_eq!(gt.intercept, Some(20.578278));
 
     } 
+
+
+
 
     #[test]
     fn test_variance(){
