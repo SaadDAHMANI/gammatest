@@ -5,6 +5,7 @@
 //! 
 //! ## References 
 //! \[1\] Stefánsson, A., Končar, N., & Jones, A. J. (1997). A note on the gamma test. Neural Computing & Applications, 5(3), 131-133.
+//! 
 //! \[2\] Kemp, S. E., Wilson, I. D., & Ware, J. A. (2004). A tutorial on the gamma test. International Journal of Simulation: Systems, Science and Technology, 6(1-2), 67-75.
 
 use num_traits::Float;
