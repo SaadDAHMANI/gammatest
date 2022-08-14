@@ -3,7 +3,7 @@ name = "gammatest"
 version = "0.1.0"
 edition = "2021"
 authors = ["Saad Dahmani <sd.dahmani2000@gmail.com>"] 
-description ="gammatest crate provides a code to perform Gamma Test for feature selection."
+description ="gammatest crate provides a code to perform Gamma Test for machine learning feature selection."
 license = "MIT"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
