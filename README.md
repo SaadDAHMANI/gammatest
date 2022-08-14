@@ -1,4 +1,4 @@
-# Gammatest
+# gammatest
 
 ## Definition 
 [gammatest](https://github.com/SaadDAHMANI/gammatest) is a simple [rust](https://github.com/rust-lang/rust) implementation of the Gamma Test. 

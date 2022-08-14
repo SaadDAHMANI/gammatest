@@ -1,6 +1,6 @@
 [package]
 name = "gammatest"
-version = "0.1.1"
+version = "0.1.2"
 edition = "2021"
 authors = ["Saad Dahmani <sd.dahmani2000@gmail.com>"] 
 description ="gammatest crate provides a code to perform Gamma Test for machine learning feature selection."
