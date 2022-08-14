@@ -78,7 +78,11 @@ pub struct GammaTest<'a, T : Float> {
 impl<'a, T:Float> GammaTest<'a, T> {
     ///
     /// Build a new Gammatest object. "p" in number of neighbors.
-    /// 
+    /// #Panics
+    /// The code panics if : 
+    /// 1. inputs/outputs length is null (i.e., if no elements in the dataset),
+    /// 2. inputs lenght not equals outputs length,
+    /// 3. number of neighbors p is less than 2.
     pub fn new(inputs : &'a [Vec<T>], outputs : &'a [T], p : usize)->GammaTest<'a, T> {
             let n = outputs.len();
             let mm = inputs.len();
