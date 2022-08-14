@@ -350,7 +350,7 @@ impl<'a, T:Float> GammaTest<'a, T> {
             (slope, intercept)
         }
         
-        pub fn compute_variance(data : &[T])->Option<T>{
+        fn compute_variance(data : &[T])->Option<T>{
             let n = data.len();
             let nt : T = match T::from(n) {
                 None => T::one(),
