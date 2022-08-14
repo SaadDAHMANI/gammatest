@@ -1,11 +1,11 @@
 //!
 //! [gammatest](https://github.com/SaadDAHMANI/gammatest) is a simple implementation of the Gamma Test.
-//! Gamma Test [1] is non-parametric test for feature selection frequently used in machine learning.
-//! The [gammatest](https://github.com/SaadDAHMANI/gammatest) crate is base on https://ijssst.info/Vol-06/No-1&2/Kemp.pdf[2] paper.
+//! Gamma Test \[1\] is non-parametric test for feature selection frequently used in machine learning.
+//! The [gammatest](https://github.com/SaadDAHMANI/gammatest) crate is based on the paper [2](https://ijssst.info/Vol-06/No-1&2/Kemp.pdf).
 //! 
 //! ## References 
-//! [1] Stefánsson, A., Končar, N., & Jones, A. J. (1997). A note on the gamma test. Neural Computing & Applications, 5(3), 131-133.
-//! [2] Kemp, S. E., Wilson, I. D., & Ware, J. A. (2004). A tutorial on the gamma test. International Journal of Simulation: Systems, Science and Technology, 6(1-2), 67-75.
+//! \[1\] Stefánsson, A., Končar, N., & Jones, A. J. (1997). A note on the gamma test. Neural Computing & Applications, 5(3), 131-133.
+//! \[2\] Kemp, S. E., Wilson, I. D., & Ware, J. A. (2004). A tutorial on the gamma test. International Journal of Simulation: Systems, Science and Technology, 6(1-2), 67-75.
 
 use num_traits::Float;
 
@@ -59,7 +59,7 @@ pub struct GammaTest<'a, T : Float> {
  
     /// The number of neighbors
     pub p : usize,
-    
+
     pub output_variance : Option<T>,
     //pub mean_absolute_error : Option<f32>,
     pub sigmas : Option<Vec<T>>,

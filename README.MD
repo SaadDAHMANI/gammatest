@@ -5,7 +5,7 @@
 
 Gamma Test [1] is non-parametric test for feature selection frequently used in machine learning.
 
-The [gammatest](https://github.com/SaadDAHMANI/gammatest) crate is base on https://ijssst.info/Vol-06/No-1&2/Kemp.pdf [2] paper.
+The [gammatest](https://github.com/SaadDAHMANI/gammatest) crate is based on https://ijssst.info/Vol-06/No-1&2/Kemp.pdf [2] paper.
 
 ### References 
 [1] Stefánsson, A., Končar, N., & Jones, A. J. (1997). A note on the gamma test. Neural Computing & Applications, 5(3), 131-133.
