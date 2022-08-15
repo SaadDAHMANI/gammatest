@@ -18,8 +18,10 @@ use num_traits::Float;
 /// use gammatest::*;
 /// fn main()
 ///    {    
-///       // Give the input matrix
-///       let inputs =[
+///        
+///       // Suppose we would perform Gamma Test on the model y=f(x1, x2, x3)
+///       // Give the input matrix (x1, x2, x3), where x1, x2, and x3 are grouped as rows.   
+///       let inputs =[//x1,    x2,  x3 
 ///                   [3.0f32, 4.0, 4.0].to_vec(),
 ///                   [2.0f32, 1.0, 3.0].to_vec(),
 ///                   [1.0f32, 0.0, 1.0].to_vec(),
