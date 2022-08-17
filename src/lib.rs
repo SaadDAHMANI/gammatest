@@ -409,17 +409,24 @@ impl<'a, T:Float> GammaTest<'a, T> {
     /// The M-Test can check capaciy of a dataset to produce a good and smooth prediction model. 
  pub struct MTest<'a, T: Float> {
     
-    ///
     /// Dataset inputs (i.e., model inputs).
-    ///  
     pub inputs : &'a [Vec<T>],
-    
-    ///
+       
     /// Dataset outputs (i.e., model outputs).
-    ///
     pub outputs : &'a [T],
 
+    /// The number of neighbors
+    pub p : &'a [usize],
 
+    /// The Gamma parameter (intercept)   
+    pub intercepts : Option<Vec<T>>,
+
+    /// The slope value
+    pub slopes : Option<Vec<T>>,
+
+    /// The V_ratio value 
+    pub v_ratios : Option<Vec<T>>,
+ 
  }
 
 
