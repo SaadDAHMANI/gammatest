@@ -402,8 +402,19 @@ impl<'a, T:Float> GammaTest<'a, T> {
     ///
     /// Provide M-Test code. M-Test is series of Gamma tests establised for different dataset lengths. 
     /// The M-Test can check capaciy of a dataset to produce a good and smooth prediction model. 
- pub struct MTest {
+ pub struct MTest<'a, T: Float> {
+    
+    ///
+    /// Dataset inputs (i.e., model inputs).
+    ///  
+    pub inputs : &'a [Vec<T>],
+    
+    ///
+    /// Dataset outputs (i.e., model outputs).
+    ///
+    pub outputs : &'a [T],
 
+    
  }
 
 
