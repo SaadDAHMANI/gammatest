@@ -67,8 +67,13 @@ pub struct GammaTest<'a, T : Float> {
     //pub mean_absolute_error : Option<f32>,
     pub sigmas : Option<Vec<T>>,
     pub deltas : Option<Vec<T>>,
+       
+    /// Dataset inputs (i.e., model inputs).
     pub inputs : &'a [Vec<T>],
+    
+    /// Dataset inputs (i.e., model inputs).
     pub outputs : &'a [T],
+    
     pub euclidean_distance_table : Vec<Vec<T>>,
     pub y_distance_table : Vec<Vec<T>>,
     pub near_neighbor_table : Vec<Vec<T>>,
@@ -414,7 +419,7 @@ impl<'a, T:Float> GammaTest<'a, T> {
     ///
     pub outputs : &'a [T],
 
-    
+
  }
 
 
