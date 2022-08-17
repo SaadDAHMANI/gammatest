@@ -399,7 +399,14 @@ impl<'a, T:Float> GammaTest<'a, T> {
        
     }
     
- 
+    ///
+    /// Provide M-Test code. M-Test is series of Gamma tests establised for different dataset lengths. 
+    /// The M-Test can check capaciy of a dataset to produce a good and smooth prediction model. 
+ pub struct MTest {
+
+ }
+
+
 mod stat{
     use num_traits::Float;
 
@@ -526,8 +533,7 @@ mod tests{
         gt.compute();
 
         assert_eq!(gt.intercept, Some(0.0f32));
-        assert_eq!(gt.slope, Some(0.0f32));
-    
+        assert_eq!(gt.slope, Some(0.0f32));    
     }
 
 
